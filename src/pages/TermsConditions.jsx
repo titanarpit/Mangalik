@@ -12,7 +12,7 @@ const TermsConditions = () => {
         <div className="policy-content" style={{ maxWidth: '900px', margin: '0 auto', lineHeight: '1.8' }}>
           <p><strong>Last Updated: May 13, 2026</strong></p>
           <br />
-          <p>Welcome to JERKEIS, a brand operated and incorporated under AGRANEX INDUSTRIES PRIVATE LIMITED. By accessing our website at https://jerkeis.com/ or purchasing our products, you agree to be bound by the following terms and conditions.</p>
+          <p>Welcome to MANGLIK, a brand operated and incorporated under AGRANEX INDUSTRIES PRIVATE LIMITED. By accessing our website at https://manglik.com/ or purchasing our products, you agree to be bound by the following terms and conditions.</p>
 
           <h3 id="general">1. GENERAL PROVISIONS</h3>
           <p><strong>Ownership:</strong> The website and its original content, features, and functionality are owned by AGRANEX INDUSTRIES PRIVATE LIMITED and are protected by international copyright, trademark, and other intellectual property laws.</p>
@@ -27,7 +27,7 @@ const TermsConditions = () => {
           <p><strong>Taxes:</strong> You are responsible for all applicable taxes associated with your purchase.</p>
 
           <h3 id="property">4. INTELLECTUAL PROPERTY</h3>
-          <p>The JERKEIS name, logos, and all related product and service names are trademarks of AGRANEX INDUSTRIES PRIVATE LIMITED.</p>
+          <p>The MANGLIK name, logos, and all related product and service names are trademarks of AGRANEX INDUSTRIES PRIVATE LIMITED.</p>
           <p>You may not use, reproduce, or distribute any content from the site without express written permission.</p>
 
           <h3 id="liability">5. LIMITATION OF LIABILITY</h3>
@@ -42,7 +42,7 @@ const TermsConditions = () => {
 
           <h3 id="contact">8. CONTACT INFORMATION</h3>
           <p>For questions about these Terms, please contact us at:</p>
-          <p><strong>Email:</strong> support@jerkeis.com</p>
+          <p><strong>Email:</strong> support@manglik.com</p>
           <p><strong>Address:</strong> AGRANEX INDUSTRIES PRIVATE LIMITED, Plot No 61, 88/74 Hindustan Compound, Jajmau, Kanpur, Uttar Pradesh, 208010.</p>
         </div>
       </div>

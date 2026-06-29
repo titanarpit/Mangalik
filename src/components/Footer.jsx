@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import logo from '../assets/images/logo.png'
+const logo = "https://placehold.co/120x40/transparent/white?text=Manglik";
 import { 
   Instagram, 
   Threads, 
@@ -50,30 +50,13 @@ const Footer = () => {
             <Link to="/" onClick={() => window.scrollTo(0, 0)}>
               <img src={logo} alt="Logo" width={120} style={{filter: 'brightness(0) invert(1)', marginBottom: '20px'}} />
             </Link>
-            <p style={{color: 'rgba(255,255,255,0.7)', marginBottom: '20px'}}>Providing the best nutrition for your pets since 2025. Your pet's health is our top priority.</p>
-            <div className="social-links">
-              <a href="https://www.instagram.com/jerkeis_india/" target="_blank" rel="noopener noreferrer" className="social-icon">
-                {renderIcon(Instagram)}
-              </a>
-              <a href="https://www.threads.com/@jerkeis_india" target="_blank" rel="noopener noreferrer" className="social-icon">
-                {renderIcon(Threads)}
-              </a>
-              <a href="https://www.linkedin.com/company/115764008/" target="_blank" rel="noopener noreferrer" className="social-icon">
-                {renderIcon(Linkedin)}
-              </a>
-              <a href="https://x.com/jerkeis_india" target="_blank" rel="noopener noreferrer" className="social-icon">
-                {renderIcon(TwitterX)}
-              </a>
-              <a href="https://www.facebook.com/jerkeis/" target="_blank" rel="noopener noreferrer" className="social-icon">
-                {renderIcon(Facebook)}
-              </a>
-            </div>
+            <p style={{color: 'rgba(255,255,255,0.7)', marginBottom: '20px'}}>Providing the finest pooja essentials for your devotion. Your spiritual journey is our top priority.</p>
           </div>
           <div className="footer-col">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="/#categories" onClick={(e) => handleNavClick(e, 'categories')} style={{cursor: 'pointer'}}>Shop</a></li>
-              <li><a href="/#categories" onClick={(e) => handleNavClick(e, 'categories')} style={{cursor: 'pointer'}}>Products</a></li>
+              <li><Link to="/products" onClick={() => window.scrollTo(0,0)}>Shop</Link></li>
+              <li><Link to="/products" onClick={() => window.scrollTo(0,0)}>Products</Link></li>
               <li><a href="/#features" onClick={(e) => handleNavClick(e, 'features')} style={{cursor: 'pointer'}}>Features</a></li>
               <li><a href="/#contact" onClick={(e) => handleNavClick(e, 'contact')} style={{cursor: 'pointer'}}>Contact</a></li>
             </ul>
@@ -106,20 +89,20 @@ const Footer = () => {
                 </a>
               </li>
               <li style={{marginBottom: '10px'}}>
-                <a href="mailto:support@jerkeis.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
-                  ✉️ Customers: support@jerkeis.com
+                <a href="mailto:support@manglik.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                  ✉️ Customers: support@manglik.com
                 </a>
               </li>
               <li>
-                <a href="mailto:business@jerkeis.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
-                  ✉️ Business: business@jerkeis.com
+                <a href="mailto:business@manglik.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                  ✉️ Business: business@manglik.com
                 </a>
               </li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2025 AGRANEX INDUSTRIES PVT. LTD. - Brand Name: JERKEIS. All rights reserved</p>
+          <p>&copy; 2026 MANGLIK INDUSTRIES PVT. LTD. - Brand Name: MANGLIK. All rights reserved</p>
         </div>
       </div>
     </footer>

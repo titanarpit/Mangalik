@@ -1,11 +1,11 @@
 import React from 'react'
-import defaultAvatar from '../assets/images/reviewers/default-avatar.svg'
+const defaultAvatar = "https://placehold.co/50x50/ccc/white?text=User";
 
 const reviews = [
-  { id: 1, name: 'Aarav Sharma', rating: 5, review: 'My Golden Retriever loves the Natural Grain-Free food. Highly recommended!', img: defaultAvatar },
-  { id: 2, name: 'Isha Patel', rating: 5, review: 'The Cat food is amazing. My cat is much more active now.', img: defaultAvatar },
-  { id: 3, name: 'Vikram Singh', rating: 4, review: 'Great quality products. The delivery was also very fast.', img: defaultAvatar },
-  { id: 4, name: 'Ananya Reddy', rating: 5, review: 'I finally found food that my picky eater actually enjoys. Thank you Jerkeis!', img: defaultAvatar },
+  { id: 1, name: 'Aarav Sharma', rating: 5, review: 'The quality of the pooja samagri is excellent. Highly recommended!', img: defaultAvatar },
+  { id: 2, name: 'Isha Patel', rating: 5, review: 'Beautifully crafted diyas. Perfect for my daily prayers.', img: defaultAvatar },
+  { id: 3, name: 'Rahul Verma', rating: 4, review: 'Good packaging and timely delivery. Very satisfied.', img: defaultAvatar },
+  { id: 4, name: 'Ananya Reddy', rating: 5, review: 'I finally found authentic pooja items that feel pure. Thank you Manglik!', img: defaultAvatar },
 ]
 
 const Reviews = () => {

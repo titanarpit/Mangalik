@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Hero from '../components/Hero'
 import Products from '../components/Products'
-import CategorySelection from '../components/CategorySelection'
 import Features from '../components/Features'
 import Reviews from '../components/Reviews'
 import WhyChooseUs from '../components/WhyChooseUs'
@@ -32,7 +31,6 @@ const Home = () => {
         <Hero />
       </section>
       <Products />
-      <CategorySelection />
       <Features />
       <WhyChooseUs />
       <Reviews />

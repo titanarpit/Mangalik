@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import contactImg from '../assets/images/Jerkeis/Home Page/Contact form.png'
+import contactImg from '../assets/images/pooja/thali.png'
 import { Whatsapp } from '@boxicons/js'
 
 const Contact = () => {

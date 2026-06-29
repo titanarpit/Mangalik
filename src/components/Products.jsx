@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { dogProducts, catProducts } from '../data/products'
+import { poojaProducts } from '../data/products'
   const Products = () => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const isPaused = useRef(false);
   const timeoutRef = useRef(null);
 
-  const combinedProducts = [...dogProducts, ...catProducts];
+  const combinedProducts = [...poojaProducts];
 
   const handleMouseEnter = () => {
     isPaused.current = true;

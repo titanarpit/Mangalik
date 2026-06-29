@@ -3,8 +3,8 @@
 @import "tailwindcss/utilities" layer(utilities);
 
 :root {
-  --primary: #FF9500;
-  --primary-hover: #E68600;
+  --primary: #E33C24;
+  --primary-hover: #C62B16;
   --secondary: #0E1133;
   --bg-light: #F7F9FC;
   --white: #FFFFFF;
