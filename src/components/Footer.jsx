@@ -1,0 +1,129 @@
+import React from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import logo from '../assets/images/logo.png'
+import { 
+  Instagram, 
+  Threads, 
+  Linkedin, 
+  TwitterX, 
+  Facebook, 
+  Phone, 
+  Whatsapp 
+} from '@boxicons/js'
+const Footer = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    
+    if (location.pathname !== '/') {
+      navigate('/#' + targetId)
+    } else {
+      const element = document.getElementById(targetId)
+      if (element) {
+        const yOffset = -80
+        const y = element.getBoundingClientRect().top + window.scrollY + yOffset
+        window.scrollTo({ top: y, behavior: 'smooth' })
+        window.history.pushState(null, '', '/#' + targetId)
+      }
+    }
+  }
+
+  const renderIcon = (iconObj, pack = null) => {
+    const p = pack || iconObj.defaultPack;
+    const packData = iconObj.packs[p];
+    return (
+      <svg 
+        viewBox={packData.viewBox} 
+        fill="currentColor" 
+        dangerouslySetInnerHTML={{ __html: packData.content }}
+      />
+    );
+  };
+
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-col">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+              <img src={logo} alt="Logo" width={120} style={{filter: 'brightness(0) invert(1)', marginBottom: '20px'}} />
+            </Link>
+            <p style={{color: 'rgba(255,255,255,0.7)', marginBottom: '20px'}}>Providing the best nutrition for your pets since 2025. Your pet's health is our top priority.</p>
+            <div className="social-links">
+              <a href="https://www.instagram.com/jerkeis_india/" target="_blank" rel="noopener noreferrer" className="social-icon">
+                {renderIcon(Instagram)}
+              </a>
+              <a href="https://www.threads.com/@jerkeis_india" target="_blank" rel="noopener noreferrer" className="social-icon">
+                {renderIcon(Threads)}
+              </a>
+              <a href="https://www.linkedin.com/company/115764008/" target="_blank" rel="noopener noreferrer" className="social-icon">
+                {renderIcon(Linkedin)}
+              </a>
+              <a href="https://x.com/jerkeis_india" target="_blank" rel="noopener noreferrer" className="social-icon">
+                {renderIcon(TwitterX)}
+              </a>
+              <a href="https://www.facebook.com/jerkeis/" target="_blank" rel="noopener noreferrer" className="social-icon">
+                {renderIcon(Facebook)}
+              </a>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="/#categories" onClick={(e) => handleNavClick(e, 'categories')} style={{cursor: 'pointer'}}>Shop</a></li>
+              <li><a href="/#categories" onClick={(e) => handleNavClick(e, 'categories')} style={{cursor: 'pointer'}}>Products</a></li>
+              <li><a href="/#features" onClick={(e) => handleNavClick(e, 'features')} style={{cursor: 'pointer'}}>Features</a></li>
+              <li><a href="/#contact" onClick={(e) => handleNavClick(e, 'contact')} style={{cursor: 'pointer'}}>Contact</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Our Policies</h4>
+            <ul>
+              <li><Link to="/privacy-policy" onClick={() => window.scrollTo(0,0)}>Privacy Policy</Link></li>
+              <li><Link to="/terms-conditions" onClick={() => window.scrollTo(0,0)}>Terms & Conditions</Link></li>
+              <li><Link to="/shipping-return" onClick={() => window.scrollTo(0,0)}>Shipping & Returns</Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Contact Us</h4>
+            <ul>
+              <li style={{marginBottom: '15px'}}>
+                <a href="tel:+919151718753" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
+                  <span className="social-icon" style={{width: '32px', height: '32px'}}>
+                    {renderIcon(Phone, 'filled')}
+                  </span>
+                  +91 9151718753
+                </a>
+              </li>
+              <li style={{marginBottom: '15px'}}>
+                <a href="https://wa.me/message/X4NWJ665JW3IC1" target="_blank" rel="noopener noreferrer" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
+                  <span className="social-icon" style={{width: '32px', height: '32px'}}>
+                    {renderIcon(Whatsapp)}
+                  </span>
+                  WhatsApp Chat
+                </a>
+              </li>
+              <li style={{marginBottom: '10px'}}>
+                <a href="mailto:support@jerkeis.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                  ✉️ Customers: support@jerkeis.com
+                </a>
+              </li>
+              <li>
+                <a href="mailto:business@jerkeis.com" style={{color: 'rgba(255,255,255,0.7)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                  ✉️ Business: business@jerkeis.com
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2025 AGRANEX INDUSTRIES PVT. LTD. - Brand Name: JERKEIS. All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+export default Footer
