@@ -7,14 +7,18 @@ import ProductDetail from './pages/ProductDetail'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
 import ShippingReturn from './pages/ShippingReturn'
-import ProfileAuth from './pages/ProfileAuth'
+
 import UserProfile from './pages/UserProfile'
 import Footer from './components/Footer'
+import Login from './components/Login'
+import Signup from './components/Signup'
+import { AuthProvider } from './lib/AuthContext'
 import './App.css'
 
 const App = () => {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <div className="app">
         <Navbar />
         <main>
@@ -22,8 +26,10 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/profile" element={<ProfileAuth />} />
+            <Route path="/profile" element={<Login />} />
             <Route path="/account" element={<UserProfile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/shipping-return" element={<ShippingReturn />} />
@@ -32,6 +38,7 @@ const App = () => {
         <Footer />
       </div>
     </Router>
+    </AuthProvider>
   )
 }
 

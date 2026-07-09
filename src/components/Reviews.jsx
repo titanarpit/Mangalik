@@ -5,7 +5,7 @@ const reviews = [
   { id: 1, name: 'Aarav Sharma', rating: 5, review: 'The quality of the pooja samagri is excellent. Highly recommended!', img: defaultAvatar },
   { id: 2, name: 'Isha Patel', rating: 5, review: 'Beautifully crafted diyas. Perfect for my daily prayers.', img: defaultAvatar },
   { id: 3, name: 'Rahul Verma', rating: 4, review: 'Good packaging and timely delivery. Very satisfied.', img: defaultAvatar },
-  { id: 4, name: 'Ananya Reddy', rating: 5, review: 'I finally found authentic pooja items that feel pure. Thank you Manglik!', img: defaultAvatar },
+  { id: 4, name: 'Ananya Reddy', rating: 5, review: 'I finally found authentic pooja items that feel pure. Thank you Mangalik!', img: defaultAvatar },
 ]
 
 const Reviews = () => {

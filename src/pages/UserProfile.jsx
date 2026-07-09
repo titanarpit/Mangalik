@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../lib/AuthContext'
 import './UserProfile.css'
 
 const UserProfile = () => {
-  // Mock User Data
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    mobile: '+1 234 567 8900',
-    address: '123 Manglik Street, Apt 4B, New York, NY 10001'
+  const { user, loading, signOut } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/login')
+    }
+  }, [user, loading, navigate])
+
+  if (loading) {
+    return (
+      <div className="profile-dashboard section-padding min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 font-medium">Loading...</p>
+      </div>
+    )
+  }
+
+  if (!user) return null
+
+  // Extract user details from user metadata
+  const userData = {
+    firstName: user.user_metadata?.first_name || 'N/A',
+    lastName: user.user_metadata?.last_name || '',
+    email: user.email || '',
+    mobile: user.user_metadata?.contact_no || 'N/A',
+    address: user.user_metadata?.full_address 
+      ? `${user.user_metadata.full_address}, ${user.user_metadata.city || ''}, ${user.user_metadata.state || ''} - ${user.user_metadata.pincode || ''}`
+      : 'No address provided'
   }
 
   // Mock Order History
@@ -36,9 +59,9 @@ const UserProfile = () => {
     }
   ]
 
-  const handleLogout = () => {
-    // Mock logout action
-    window.location.href = '/'
+  const handleLogout = async () => {
+    await signOut()
+    navigate('/')
   }
 
   return (
@@ -48,7 +71,7 @@ const UserProfile = () => {
         <div className="dashboard-header">
           <div>
             <h1>My Account</h1>
-            <p>Welcome back, {user.firstName}!</p>
+            <p>Welcome back, {userData.firstName}!</p>
           </div>
           <button onClick={handleLogout} className="btn btn-outline logout-btn">
             Log Out
@@ -66,19 +89,19 @@ const UserProfile = () => {
             <div className="info-list">
               <div className="info-item">
                 <span className="info-label">Full Name</span>
-                <span className="info-value">{user.firstName} {user.lastName}</span>
+                <span className="info-value">{userData.firstName} {userData.lastName}</span>
               </div>
               <div className="info-item">
                 <span className="info-label">Email Address</span>
-                <span className="info-value">{user.email}</span>
+                <span className="info-value">{userData.email}</span>
               </div>
               <div className="info-item">
                 <span className="info-label">Mobile Number</span>
-                <span className="info-value">{user.mobile}</span>
+                <span className="info-value">{userData.mobile}</span>
               </div>
               <div className="info-item">
                 <span className="info-label">Shipping Address</span>
-                <span className="info-value address-value">{user.address}</span>
+                <span className="info-value address-value">{userData.address}</span>
               </div>
             </div>
           </div>

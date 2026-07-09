@@ -192,18 +192,38 @@
 
 .product-card {
   background: var(--white);
-  padding: 30px;
-  border-radius: var(--border-radius-lg);
+  padding: 25px;
+  border-radius: 20px;
   text-align: center;
-  transition: var(--transition);
-  border: 1px solid #eee;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.02);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,149,0,0.03) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-  border-color: var(--primary);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(255, 149, 0, 0.15), 0 0 0 1px rgba(255, 149, 0, 0.2);
+  border-color: transparent;
+}
+
+.product-card:hover::before {
+  opacity: 1;
 }
 
 .product-card img {
@@ -211,8 +231,15 @@
   height: 220px;
   margin: 0 auto 20px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
+
+.product-card:hover img {
+  transform: scale(1.08) translateY(-5px);
+}
+
 
 .dog-product-card img {
   height: 273px;

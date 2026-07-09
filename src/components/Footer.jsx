@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-const logo = "https://placehold.co/120x40/transparent/white?text=Manglik";
+const logo = "https://placehold.co/120x40/transparent/white?text=Mangalik";
 import { 
   Instagram, 
   Threads, 
