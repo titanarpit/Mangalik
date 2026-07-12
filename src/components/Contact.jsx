@@ -80,7 +80,7 @@ const Contact = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone">Contact No.</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900" required />
+                    <input type="tel" id="phone" name="phone" placeholder="+91 99999 99999" required />
                   </div>
                 </div>
                 
@@ -95,9 +95,7 @@ const Contact = () => {
                   </button>
                   <div style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8rem' }}>- or -</div>
                   <a 
-                    href="https://wa.me/message/X4NWJ665JW3IC1" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                    href="#" 
                     className="btn" 
                     style={{ 
                       backgroundColor: '#25D366', 

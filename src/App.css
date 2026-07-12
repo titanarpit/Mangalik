@@ -241,11 +241,6 @@
 }
 
 
-.dog-product-card img {
-  height: 273px;
-  transform: scale(1.5);
-}
-
 .products-track .product-card {
   flex: 0 0 300px; /* Fixed width for scrolling track */
 }
@@ -602,13 +597,25 @@
     padding: 60px 0;
   }
 
-  /* Navbar Mobile */
+  /* Navbar Mobile Layout */
+  .navbar .container {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .navbar .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .navbar {
     padding: 30px 0 15px;
   }
 
   .nav-toggle {
     display: flex;
+    order: -1;
   }
 
   .nav-links {
@@ -1023,6 +1030,12 @@
   object-fit: contain;
 }
 
+@media (max-width: 768px) {
+  .wcu-image {
+    display: none;
+  }
+}
+
 .wcu-cards-wrapper {
   flex: 1;
   display: flex;
@@ -1341,5 +1354,8 @@
 @media (max-width: 768px) {
   .page-container {
     padding-top: 100px;
+  }
+  .shop-now-btn {
+    display: none !important;
   }
 }

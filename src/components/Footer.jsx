@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-const logo = "https://placehold.co/120x40/transparent/white?text=Mangalik";
+import logo from '../assets/Manglik.PNG'
 import { 
   Instagram, 
   Threads, 
@@ -73,15 +73,15 @@ const Footer = () => {
             <h4>Contact Us</h4>
             <ul>
               <li style={{marginBottom: '15px'}}>
-                <a href="tel:+919151718753" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
+                <a href="tel:+919999999999" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
                   <span className="social-icon" style={{width: '32px', height: '32px'}}>
                     {renderIcon(Phone, 'filled')}
                   </span>
-                  +91 9151718753
+                  +91 99999 99999
                 </a>
               </li>
               <li style={{marginBottom: '15px'}}>
-                <a href="https://wa.me/message/X4NWJ665JW3IC1" target="_blank" rel="noopener noreferrer" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
+                <a href="#" style={{color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none'}}>
                   <span className="social-icon" style={{width: '32px', height: '32px'}}>
                     {renderIcon(Whatsapp)}
                   </span>

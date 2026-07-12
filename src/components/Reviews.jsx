@@ -39,7 +39,7 @@ const Reviews = () => {
         </div>
 
         <div className="text-center" style={{ marginTop: '50px', display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <a href="https://forms.gle/gL3dw7eMtgKND6b18" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Submit a Review</a>
+          <a href="#" className="btn btn-primary">Submit a Review</a>
         </div>
       </div>
     </section>

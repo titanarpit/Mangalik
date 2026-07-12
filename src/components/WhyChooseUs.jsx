@@ -90,7 +90,6 @@ const WhyChooseUs = () => {
               ))}
             </div>
           </div>
-
           <div className="wcu-image">
             <img src={comparisonImg} alt="Comparison" />
           </div>

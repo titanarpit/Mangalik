@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
-const logo = "https://placehold.co/154x50/ffa41c/white?text=Mangalik";
+import logo from '../assets/Manglik.PNG'
 
 const Navbar = () => {
   const { user } = useAuth()
@@ -74,7 +74,7 @@ const Navbar = () => {
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
           </Link>
-          <Link to="/products" className="btn btn-primary" onClick={closeMobileMenu}>Shop Now</Link>
+          <Link to="/products" className="btn btn-primary shop-now-btn" onClick={closeMobileMenu}>Shop Now</Link>
         </div>
       </div>
     </nav>
