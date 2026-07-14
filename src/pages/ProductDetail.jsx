@@ -1,18 +1,92 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { poojaProducts } from '../data/products'
+import { getLocalProducts } from '../data/products'
+import { useAuth } from '../lib/AuthContext'
 import './ProductDetail.css'
 
 const ProductDetail = () => {
   const { id } = useParams()
-  const product = [...poojaProducts].find(p => p.id === parseInt(id))
+  const products = getLocalProducts()
+  const product = [...products].find(p => p.id === parseInt(id))
   
   const [activeImage, setActiveImage] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [showBuyCard, setShowBuyCard] = useState(false)
 
-  // Mock price (since data doesn't have it)
-  const price = 299;
+  // Parse price from product data (e.g. '₹250.00' -> 250)
+  const price = product ? parseInt(product.price.replace(/[^\d]/g, '')) || 299 : 299;
+
+  const { user } = useAuth();
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderId, setOrderId] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: ''
+  });
+
+  // Pre-fill if user is logged in
+  useEffect(() => {
+    if (user && showCheckout) {
+      setFormData({
+        name: `${user.user_metadata?.first_name || ''} ${user.user_metadata?.last_name || ''}`.trim(),
+        email: user.email || '',
+        phone: user.user_metadata?.contact_no || '',
+        address: user.user_metadata?.full_address || '',
+        city: user.user_metadata?.city || '',
+        state: user.user_metadata?.state || '',
+        pincode: user.user_metadata?.pincode || ''
+      });
+    }
+  }, [user, showCheckout]);
+
+  const handleCheckoutSubmit = (e) => {
+    e.preventDefault();
+    const newOrderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+    const newOrder = {
+      id: newOrderId,
+      date: new Date().toLocaleDateString('en-IN', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      }),
+      items: [
+        {
+          productId: product.id,
+          name: product.name,
+          price: price,
+          quantity: quantity,
+          img: product.img
+        }
+      ],
+      totalPrice: price * quantity,
+      customer: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        pincode: formData.pincode
+      },
+      status: 'Pending'
+    };
+
+    // Save to localStorage
+    const existingOrders = JSON.parse(localStorage.getItem('mangalik_orders') || '[]');
+    existingOrders.unshift(newOrder);
+    localStorage.setItem('mangalik_orders', JSON.stringify(existingOrders));
+
+    setOrderId(newOrderId);
+    setOrderPlaced(true);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -118,7 +192,7 @@ const ProductDetail = () => {
                     <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                   </div>
                 </div>
-                <button className="btn btn-primary pay-now-btn" onClick={() => alert(`Proceeding to payment for ₹${price * quantity}`)}>
+                <button className="btn btn-primary pay-now-btn" onClick={() => setShowCheckout(true)}>
                   Pay Now
                 </button>
               </div>
@@ -183,6 +257,160 @@ const ProductDetail = () => {
         </div>
       </div>
 
+      {/* Checkout Modal */}
+      {showCheckout && (
+        <div className="checkout-modal-overlay" onClick={() => { if (!orderPlaced) setShowCheckout(false); }}>
+          <div className="checkout-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="checkout-modal-header">
+              <h2>{orderPlaced ? 'Order Placed!' : 'Complete Your Order'}</h2>
+              {!orderPlaced && (
+                <button className="checkout-close-btn" onClick={() => setShowCheckout(false)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            <div className="checkout-modal-body">
+              {orderPlaced ? (
+                <div className="success-card">
+                  <div className="success-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h3 className="success-title">Thank You!</h3>
+                  <p className="success-text">
+                    Your order has been placed successfully. The owner has been notified and will fulfill it shortly.
+                  </p>
+                  <div className="order-id-box">{orderId}</div>
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => {
+                      setShowCheckout(false);
+                      setOrderPlaced(false);
+                      setShowBuyCard(false);
+                      setQuantity(1);
+                    }}
+                    style={{ width: '100%', borderRadius: '100px', padding: '12px' }}
+                  >
+                    Continue Shopping
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="checkout-section-title">Order Summary</div>
+                  <div className="checkout-order-summary">
+                    <div>
+                      <div className="checkout-summary-name">{product.name}</div>
+                      <div className="checkout-summary-qty">Quantity: {quantity} × ₹{price}</div>
+                    </div>
+                    <div className="checkout-summary-total">₹{price * quantity}</div>
+                  </div>
+
+                  <div className="checkout-section-title">Delivery &amp; Customer Information</div>
+                  <form className="checkout-form" onSubmit={handleCheckoutSubmit}>
+                    <div className="checkout-form-group">
+                      <label htmlFor="checkout-name">Full Name</label>
+                      <input 
+                        type="text" 
+                        id="checkout-name" 
+                        className="checkout-input"
+                        placeholder="e.g. Rahul Sharma"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="form-group-row">
+                      <div className="checkout-form-group">
+                        <label htmlFor="checkout-email">Email Address</label>
+                        <input 
+                          type="email" 
+                          id="checkout-email" 
+                          className="checkout-input"
+                          placeholder="name@example.com"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                      </div>
+                      <div className="checkout-form-group">
+                        <label htmlFor="checkout-phone">Phone Number</label>
+                        <input 
+                          type="tel" 
+                          id="checkout-phone" 
+                          className="checkout-input"
+                          placeholder="10-digit mobile"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="checkout-form-group">
+                      <label htmlFor="checkout-address">Shipping Address</label>
+                      <input 
+                        type="text" 
+                        id="checkout-address" 
+                        className="checkout-input"
+                        placeholder="Flat/House no, building, street/area"
+                        required
+                        value={formData.address}
+                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="form-group-row-3">
+                      <div className="checkout-form-group">
+                        <label htmlFor="checkout-city">City</label>
+                        <input 
+                          type="text" 
+                          id="checkout-city" 
+                          className="checkout-input"
+                          required
+                          value={formData.city}
+                          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        />
+                      </div>
+                      <div className="checkout-form-group">
+                        <label htmlFor="checkout-state">State</label>
+                        <input 
+                          type="text" 
+                          id="checkout-state" 
+                          className="checkout-input"
+                          required
+                          value={formData.state}
+                          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                        />
+                      </div>
+                      <div className="checkout-form-group">
+                        <label htmlFor="checkout-pincode">Pincode</label>
+                        <input 
+                          type="text" 
+                          id="checkout-pincode" 
+                          className="checkout-input"
+                          required
+                          value={formData.pincode}
+                          onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <button type="submit" className="checkout-submit-btn">
+                      Place Order (₹{price * quantity})
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

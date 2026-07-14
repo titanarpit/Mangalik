@@ -13,6 +13,29 @@ import {
 const Footer = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [pendingCount, setPendingCount] = React.useState(0)
+
+  React.useEffect(() => {
+    const checkOrders = () => {
+      const stored = localStorage.getItem('mangalik_orders')
+      if (stored) {
+        try {
+          const orders = JSON.parse(stored)
+          const pending = orders.filter(o => o.status === 'Pending').length
+          setPendingCount(pending)
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    }
+    checkOrders()
+    window.addEventListener('storage', checkOrders)
+    const interval = setInterval(checkOrders, 2000)
+    return () => {
+      window.removeEventListener('storage', checkOrders)
+      clearInterval(interval)
+    }
+  }, [])
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault()
@@ -59,6 +82,16 @@ const Footer = () => {
               <li><Link to="/products" onClick={() => window.scrollTo(0,0)}>Products</Link></li>
               <li><a href="/#features" onClick={(e) => handleNavClick(e, 'features')} style={{cursor: 'pointer'}}>Features</a></li>
               <li><a href="/#contact" onClick={(e) => handleNavClick(e, 'contact')} style={{cursor: 'pointer'}}>Contact</a></li>
+              <li>
+                <Link to="/admin" onClick={() => window.scrollTo(0,0)} style={{color: 'var(--primary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px'}}>
+                  Owner Dashboard
+                  {pendingCount > 0 && (
+                    <span style={{ backgroundColor: '#ef4444', color: 'white', borderRadius: '50%', padding: '2px 7px', fontSize: '0.75rem', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {pendingCount}
+                    </span>
+                  )}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="footer-col">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import ProductsPage from './pages/ProductsPage'
@@ -13,31 +13,42 @@ import Footer from './components/Footer'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { AuthProvider } from './lib/AuthContext'
+import Dashboard from './assets/dashboard/Dashboard'
 import './App.css'
+
+const AppContent = () => {
+  const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
+
+  return (
+    <div className="app">
+      {!isAdmin && <Navbar />}
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/profile" element={<Login />} />
+          <Route path="/account" element={<UserProfile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/shipping-return" element={<ShippingReturn />} />
+          <Route path="/admin" element={<Dashboard />} />
+        </Routes>
+      </main>
+      {!isAdmin && <Footer />}
+    </div>
+  )
+}
 
 const App = () => {
   return (
     <AuthProvider>
       <Router>
-      <div className="app">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/profile" element={<Login />} />
-            <Route path="/account" element={<UserProfile />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-conditions" element={<TermsConditions />} />
-            <Route path="/shipping-return" element={<ShippingReturn />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+        <AppContent />
+      </Router>
     </AuthProvider>
   )
 }

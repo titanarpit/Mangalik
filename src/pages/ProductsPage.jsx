@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { poojaProducts } from '../data/products';
+import { getLocalProducts } from '../data/products';
 
 const ProductsPage = () => {
   const [activeTab, setActiveTab] = useState('Pooja Samagri');
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setProducts(getLocalProducts());
   }, []);
 
-  const filteredProducts = poojaProducts.filter(p => p.category === activeTab);
+  const filteredProducts = products.filter(p => p.category === activeTab);
 
   return (
     <div className="products-page section-padding" style={{ minHeight: '80vh', paddingTop: '120px' }}>

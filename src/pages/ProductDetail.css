@@ -64,3 +64,229 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+/* Checkout Modal Styles */
+.checkout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.checkout-modal {
+  background: white;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: modalScaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkout-modal-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--text-main, #333);
+}
+
+.checkout-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s ease;
+}
+
+.checkout-close-btn:hover {
+  background-color: #f1f5f9;
+  color: #334155;
+}
+
+.checkout-modal-body {
+  padding: 32px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.checkout-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.checkout-order-summary {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.checkout-summary-name {
+  font-weight: 700;
+  color: var(--text-main, #333);
+}
+
+.checkout-summary-qty {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.checkout-summary-total {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--secondary);
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-group-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.checkout-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkout-form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.checkout-input {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.checkout-input:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(255, 143, 0, 0.15);
+}
+
+.checkout-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  background-color: #ffa41c;
+  color: #0f1111;
+  border: 1px solid #ff8f00;
+  box-shadow: 0 2px 5px rgba(213,217,217,.5);
+  margin-top: 10px;
+  transition: all 0.2s ease;
+}
+
+.checkout-submit-btn:hover {
+  background-color: #f59e0b;
+}
+
+/* Success modal styles */
+.success-card {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.success-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background-color: #d1fae5;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.success-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.success-text {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.order-id-box {
+  background-color: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  padding: 12px 24px;
+  border-radius: 12px;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 30px;
+}
+
+@keyframes modalScaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

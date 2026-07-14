@@ -34,30 +34,11 @@ const UserProfile = () => {
       : 'No address provided'
   }
 
-  // Mock Order History
-  const orders = [
-    {
-      id: 'ORD-84729',
-      date: 'Oct 15, 2026',
-      total: '$120.50',
-      status: 'Delivered',
-      items: 3
-    },
-    {
-      id: 'ORD-84612',
-      date: 'Sep 28, 2026',
-      total: '$45.00',
-      status: 'Processing',
-      items: 1
-    },
-    {
-      id: 'ORD-83999',
-      date: 'Aug 10, 2026',
-      total: '$210.00',
-      status: 'Delivered',
-      items: 5
-    }
-  ]
+  // Load real orders from localStorage matching the user's email
+  const allOrders = JSON.parse(localStorage.getItem('mangalik_orders') || '[]');
+  const userOrders = allOrders.filter(
+    (order) => order.customer?.email?.toLowerCase() === user.email?.toLowerCase()
+  );
 
   const handleLogout = async () => {
     await signOut()
@@ -113,21 +94,31 @@ const UserProfile = () => {
             </div>
             
             <div className="orders-list">
-              {orders.map((order) => (
-                <div key={order.id} className="order-item">
-                  <div className="order-main-info">
-                    <span className="order-id">{order.id}</span>
-                    <span className="order-date">{order.date}</span>
-                  </div>
-                  <div className="order-details">
-                    <span className="order-items">{order.items} {order.items === 1 ? 'item' : 'items'}</span>
-                    <span className="order-total">{order.total}</span>
-                    <span className={`order-status status-${order.status.toLowerCase()}`}>
-                      {order.status}
-                    </span>
-                  </div>
+              {userOrders.length === 0 ? (
+                <div style={{ color: 'var(--text-muted)', padding: '20px 0' }}>
+                  No orders placed yet. Browse products to place your first order.
                 </div>
-              ))}
+              ) : (
+                userOrders.map((order) => {
+                  const itemsCount = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                  const itemsSummary = order.items.map(i => `${i.name} (${i.quantity}x)`).join(', ');
+                  return (
+                    <div key={order.id} className="order-item" title={itemsSummary}>
+                      <div className="order-main-info">
+                        <span className="order-id">{order.id}</span>
+                        <span className="order-date">{order.date}</span>
+                      </div>
+                      <div className="order-details">
+                        <span className="order-items">{itemsCount} {itemsCount === 1 ? 'item' : 'items'}</span>
+                        <span className="order-total">₹{order.totalPrice.toLocaleString('en-IN')}</span>
+                        <span className={`order-status status-${order.status.toLowerCase()}`}>
+                          {order.status}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

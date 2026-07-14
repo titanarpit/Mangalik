@@ -1,13 +1,18 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { poojaProducts } from '../data/products'
+import { getLocalProducts } from '../data/products'
   const Products = () => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const isPaused = useRef(false);
   const timeoutRef = useRef(null);
+  const [productsList, setProductsList] = useState([]);
 
-  const combinedProducts = [...poojaProducts];
+  useEffect(() => {
+    setProductsList(getLocalProducts());
+  }, []);
+
+  const combinedProducts = [...productsList];
 
   const handleMouseEnter = () => {
     isPaused.current = true;

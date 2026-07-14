@@ -76,3 +76,21 @@ export const poojaProducts = [
     flipkartLink: '#'
   }
 ];
+
+export const getLocalProducts = () => {
+  const stored = localStorage.getItem('mangalik_products');
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch (e) {
+      console.error('Error parsing local products:', e);
+      return poojaProducts;
+    }
+  }
+  localStorage.setItem('mangalik_products', JSON.stringify(poojaProducts));
+  return poojaProducts;
+};
+
+export const saveLocalProducts = (products) => {
+  localStorage.setItem('mangalik_products', JSON.stringify(products));
+};
